@@ -1,21 +1,15 @@
 ﻿#pragma once
 #include <cstddef> 
-#include <iostream> //delete
-
+#include <initializer_list> 
 
 template <typename T, std::size_t BUFSIZE>
 class CircularBuffer 
 {
 public: //private
     T buffer[BUFSIZE]{};
-    size_t start = 0;
-    size_t endind = 0;
+    std::size_t start = 0;
+    std::size_t endind = 0;
     bool rewrite = 0;
-    
-
-
-
-
     //good     
     void push_back(const T& value)
     {
@@ -50,21 +44,13 @@ public: //private
             }
         }
     }
-
-
-
-
-
-
-
-
     CircularBuffer()// ok
     {
 
     }
-    CircularBuffer(size_t count, const T& value) //ok
+    CircularBuffer(std::size_t count, const T& value) //ok
     {
-        for (size_t i = 0; i < count; i++)
+        for (std::size_t i = 0; i < count; i++)
             push_back(value);
     }
     CircularBuffer(std::initializer_list<T> init) //ok
@@ -72,19 +58,11 @@ public: //private
         for (const auto& value : init)
             push_back(value);
     }
-
-
-
-
-    size_t begin() //ok
+    std::size_t begin() //ok
     {
         return start;
     }
-
-
-
-
-    size_t end() //ok
+    std::size_t end() //ok
     {
         if (endind == 0)
         {
@@ -95,38 +73,28 @@ public: //private
             return endind-1;
         }
     }
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-    T at(const size_t& pos) //redo
+    std::size_t capacity()
     {
+        return BUFSIZE;
+    }
+    T at(std::size_t pos)
+    {
+        while (pos >= BUFSIZE)
+        {
+            pos = pos - BUFSIZE;
+        }
         return buffer[pos];
     }
-
-
-
-    void print() //delete
+    void insert(std::size_t pos, const T& value)
     {
-        for (int i = 0; i < BUFSIZE; i++)
+    while (pos >= BUFSIZE)
         {
-            std::cout << buffer[i] << std::endl;
+        pos = pos - BUFSIZE;
         }
+    buffer[pos]=value;
     }
-
 
 
 
 private:
-
 };
