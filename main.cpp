@@ -2,7 +2,6 @@
 #include <iostream>
 #include <string>
 using namespace std;
-
 int main()
 {
 	CircularBuffer<string, 10> buf1; //default constructor
@@ -78,21 +77,5 @@ int main()
 			break;
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	return 0;
 }

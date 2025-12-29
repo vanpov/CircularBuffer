@@ -1,16 +1,15 @@
 ﻿#pragma once
 #include <cstddef> 
 #include <initializer_list> 
-
 template <typename T, std::size_t BUFSIZE>
 class CircularBuffer 
 {
-public: //private
+private:
     T buffer[BUFSIZE]{};
     std::size_t start = 0;
     std::size_t endind = 0;
     bool rewrite = 0;
-    //good     
+public: 
     void push_back(const T& value)
     {
         if (rewrite == 0)
@@ -44,25 +43,25 @@ public: //private
             }
         }
     }
-    CircularBuffer()// ok
+    CircularBuffer()
     {
 
     }
-    CircularBuffer(std::size_t count, const T& value) //ok
+    CircularBuffer(std::size_t count, const T& value) 
     {
         for (std::size_t i = 0; i < count; i++)
             push_back(value);
     }
-    CircularBuffer(std::initializer_list<T> init) //ok
+    CircularBuffer(std::initializer_list<T> init) 
     {
         for (const auto& value : init)
             push_back(value);
     }
-    std::size_t begin() //ok
+    std::size_t begin() 
     {
         return start;
     }
-    std::size_t end() //ok
+    std::size_t end() 
     {
         if (endind == 0)
         {
@@ -93,8 +92,4 @@ public: //private
         }
     buffer[pos]=value;
     }
-
-
-
-private:
 };
